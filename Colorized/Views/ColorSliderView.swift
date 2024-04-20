@@ -44,8 +44,7 @@ struct ColorSliderView: View {
     }
     
     private func checkValue() {
-        guard let value = Double(textValue) else { return }
-        if (0...255).contains(value) {
+        if let value = Double(textValue), (0...255).contains(value) {
             sliderValue = value
             return
         }
