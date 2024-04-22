@@ -17,9 +17,9 @@ struct MainView: View {
     var body: some View {
         VStack {
             RoundedRectangleView(
-                redColor: $redSlider,
-                greenColor: $greenSlider,
-                blueColor: $blueSlider
+                redColor: redSlider,
+                greenColor: greenSlider,
+                blueColor: blueSlider
             )
             
             ColorSliderView(sliderValue: $redSlider, sliderColor: .red)

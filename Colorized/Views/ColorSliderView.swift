@@ -26,21 +26,33 @@ struct ColorSliderView: View {
                     textValue = sliderValue.formatted()
                 }
             
-            TextField("", text: $textValue) { _ in
-                withAnimation { checkValue() }
-            }
-            .font(.system(size: 16))
-            .background(.white)
-            .textFieldStyle(.roundedBorder)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .frame(width: 45)
-            .multilineTextAlignment(.trailing)
-            .keyboardType(.numberPad)
-            .alert("Wrong format", isPresented: $isPresented, actions: {}) {
-                Text("Please, enter number from 0 to 255")
-            }
+            TextFieldView(textValue: $textValue, isPresented: $isPresented, sliderValue: $sliderValue)
         }
-        .onAppear {textValue = "\(lround(sliderValue))"}
+        .onAppear {
+            textValue = "\(lround(sliderValue))"
+        }
+    }
+}
+
+struct TextFieldView: View {
+    @Binding var textValue: String
+    @Binding var isPresented: Bool
+    @Binding var sliderValue: Double
+    
+    var body: some View {
+        TextField("", text: $textValue) { _ in
+            withAnimation { checkValue() }
+        }
+        .font(.system(size: 16))
+        .background(.white)
+        .textFieldStyle(.roundedBorder)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .frame(width: 45)
+        .multilineTextAlignment(.trailing)
+        .keyboardType(.numberPad)
+        .alert("Wrong format", isPresented: $isPresented, actions: {}) {
+            Text("Please, enter number from 0 to 255")
+        }
     }
     
     private func checkValue() {
@@ -53,6 +65,7 @@ struct ColorSliderView: View {
         textValue = "0"
     }
 }
+
 
 #Preview {
     ColorSliderView(sliderValue: .constant(20), sliderColor: .red)
