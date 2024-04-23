@@ -15,20 +15,22 @@ struct MainView: View {
     @FocusState private var focusedField: Field?
     
     var body: some View {
-        VStack {
+        VStack(spacing: 40) {
+            
             RoundedRectangleView(
                 redColor: redSlider,
                 greenColor: greenSlider,
                 blueColor: blueSlider
             )
             
-            ColorSliderView(sliderValue: $redSlider, sliderColor: .red)
-                .focused($focusedField, equals: .red)
-            ColorSliderView(sliderValue: $greenSlider, sliderColor: .green)
-                .focused($focusedField, equals: .green)
-            ColorSliderView(sliderValue: $blueSlider, sliderColor: .blue)
-                .focused($focusedField, equals: .blue)
-            
+            VStack {
+                ColorSliderView(sliderValue: $redSlider, sliderColor: .red)
+                    .focused($focusedField, equals: .red)
+                ColorSliderView(sliderValue: $greenSlider, sliderColor: .green)
+                    .focused($focusedField, equals: .green)
+                ColorSliderView(sliderValue: $blueSlider, sliderColor: .blue)
+                    .focused($focusedField, equals: .blue)
+            }
             Spacer()
         }
         .padding()
@@ -38,9 +40,17 @@ struct MainView: View {
         }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
+                Button(action: nextField) {
+                    Image(systemName: "chevron.down")
+                }
+                
+                Button(action: previousField) {
+                    Image(systemName: "chevron.up")
+                }
+                
                 Spacer()
                 Button("Done") {
-                   focusedField = nil
+                    focusedField = nil
                 }
             }
         }
@@ -52,6 +62,32 @@ private extension MainView {
         case red
         case green
         case blue
+    }
+    
+    func nextField() {
+        switch focusedField {
+        case .red:
+            focusedField = .green
+        case .green:
+            focusedField = .blue
+        case .blue:
+            focusedField = .red
+        case .none:
+            focusedField = nil
+        }
+    }
+    
+    func previousField() {
+        switch focusedField {
+        case .red:
+            focusedField = .blue
+        case .green:
+            focusedField = .red
+        case .blue:
+            focusedField = .green
+        case .none:
+            focusedField = nil
+        }
     }
 }
 

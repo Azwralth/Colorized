@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct RoundedRectangleView: View {
-    var redColor: Double
-    var greenColor: Double
-    var blueColor: Double
+    let redColor: Double
+    let greenColor: Double
+    let blueColor: Double
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 20)
-            .foregroundStyle(
-                Color(
-                    red: redColor/255,
-                    green: greenColor/255,
-                    blue: blueColor/255
+        VStack {
+            RoundedRectangle(cornerRadius: 20)
+                .foregroundStyle(
+                    Color(
+                        red: redColor/255,
+                        green: greenColor/255,
+                        blue: blueColor/255
+                    )
                 )
-            )
-            .frame(height: 150)
+                .frame(height: 150)
             .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color(.white), lineWidth: 4))
-            .padding(.bottom, 20)
+        }
     }
 }
 

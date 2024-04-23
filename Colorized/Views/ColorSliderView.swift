@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ColorSliderView: View {
-    @Binding var sliderValue: Double
     @State private var textValue = ""
     @State private var isPresented = false
+    
+    @Binding var sliderValue: Double
     
     let sliderColor: Color
     
@@ -26,7 +27,11 @@ struct ColorSliderView: View {
                     textValue = sliderValue.formatted()
                 }
             
-            TextFieldView(textValue: $textValue, isPresented: $isPresented, sliderValue: $sliderValue)
+            TextFieldView(
+                textValue: $textValue,
+                isPresented: $isPresented,
+                sliderValue: $sliderValue
+            )
         }
         .onAppear {
             textValue = "\(lround(sliderValue))"
@@ -47,7 +52,7 @@ struct TextFieldView: View {
         .background(.white)
         .textFieldStyle(.roundedBorder)
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .frame(width: 45)
+        .frame(width: 55)
         .multilineTextAlignment(.trailing)
         .keyboardType(.numberPad)
         .alert("Wrong format", isPresented: $isPresented, actions: {}) {
